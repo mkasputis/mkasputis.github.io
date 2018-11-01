@@ -1,0 +1,33 @@
+{
+  "name": "githubhomepage",
+  "version": "1.0.0",
+  "description": "My Github homepage",
+  "main": "index.js",
+  "dependencies": {
+    "gh-pages": "^2.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkasputis/mkasputis.github.io.git"
+  },
+  "keywords": [
+    "react",
+    "kasputis"
+  ],
+  "author": "Matthew Kasputis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkasputis/mkasputis.github.io/issues"
+  },
+  "homepage": "https://github.com/mkasputis/mkasputis.github.io#readme"
+}
