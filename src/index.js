@@ -1,16 +1,30 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { createGlobalStyle } from 'styled-components';
 
-class App extends React.Component {
-    render() {
-        return (
-            <h1>Matthew Kasputis.</h1>
-        );
-    }
-}
+import App from './App';
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('app')
+const GlobalStyle = createGlobalStyle`
+  html,
+  body,
+  #root,
+  .app,
+  body > div {
+    height: 100%;
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, sans-serif;
+  }
+`;
+
+render(
+  <>
+    <GlobalStyle />
+    <App />
+  </>,
+  document.getElementById('app')
 );
 
