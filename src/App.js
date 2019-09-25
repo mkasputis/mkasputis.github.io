@@ -10,7 +10,7 @@ const Container = styled.div`
   display: grid;
   grid:
     "header" 1fr
-    "body" 4fr;
+    "body" 10fr;
   height: 100vh;
   margin: 0;
 `;
@@ -34,15 +34,15 @@ const Nav = (props) => {
       height: 100%;
     }
     a {
-      display: block;
-      height: calc(100% - 1em);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
       width: 100%;
       color: white;
       font-size: 20px;
       font-weight: bold;
       text-decoration: none;
-      padding-top: 1em;
-      text-align: center;
       :hover {
         background-color: rgba(255,255,255,0.1);
       }
