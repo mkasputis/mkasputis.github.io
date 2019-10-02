@@ -9,7 +9,19 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
-            }
+            },
+            {
+              test: /\.css$/,
+              use: ['style-loader', 'css-loader'],
+            },
+            {
+              test: /\.svg$/,
+              use: ['xml-loader'],
+            },
+            {
+              test: /\.(png|woff|woff2)$/,
+              use: ['url-loader'],
+            },
         ]
     },
     plugins: [
@@ -20,6 +32,7 @@ module.exports = {
     },
     devServer: {
         contentBase: './dist',
-        port: 3000,
-    }
+        port: 8080,
+    },
+    devtool: 'cheap-module-source-map',
 }
