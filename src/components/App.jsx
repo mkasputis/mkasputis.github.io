@@ -9,12 +9,12 @@ import {
   Container,
   Nav,
   NavLink,
-  Body
+  Body,
 } from './layout/Styles';
-import Map from './Map';
+import Map from '../containers/Map';
 
 const Index = () => (
-  <p>Welcome to my github page! For now the bulk of this React App can be found in the <a href='#/mapping'>Mapping</a> section. You can view this as more of a proof of concept page.</p>
+  <p>Welcome to my github page! For now the bulk of this React App can be found in the <a href='#/mapping'>Mapping</a> section. You can view this as more of a proof of concept page for using basic React with Leaflet without the help of react-leaflet.</p>
 );
 
 const Skills = () => (
@@ -63,7 +63,7 @@ const Mapping = () => (
   <MapsContainer>
     <div>
       <p>Map Component</p>
-      <Map center={[42, -72]} zoom={18} />
+      <Map center={[42.366, -71.975]} zoom={9} />
     </div>
   </MapsContainer>
 );
