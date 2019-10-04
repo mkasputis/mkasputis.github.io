@@ -1,10 +1,33 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import {
   HashRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
+
+export const GlobalStyle = createGlobalStyle`
+  html,
+  body,
+  #root,
+  .app,
+  body > div {
+    height: 100%;
+  }
+  html,
+  body {
+    font-size: 20px;
+    color: #444;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, sans-serif;
+    @media (max-width: 600px) {
+    /*
+      font-size: 35px;
+      */
+    }
+  }
+`;
 
 export const Container = styled.div`
   display: grid;
@@ -40,7 +63,7 @@ export const Nav = (props) => {
       height: 100%;
       width: 100%;
       color: white;
-      font-size: 20px;
+      font-size: 1rem;
       font-weight: bold;
       text-decoration: none;
       :hover {
@@ -51,7 +74,7 @@ export const Nav = (props) => {
   return (
     <Styled>
       <ul>
-        <li style={{ flex: 2 }}>
+        <li style={{ flex: 1 }}>
           <Avatar />
         </li>
         {props.children}

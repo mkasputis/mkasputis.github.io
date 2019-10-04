@@ -21,9 +21,9 @@ const Div = styled.div`
   }
 `;
 //const OSM_URL = '';
-const OSM_URL = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+const OSM_URL = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
 const OSM_OPTS = {
-  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+  attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
 };
 const ErrorMsg = (props) => (
   <Div>
