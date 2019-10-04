@@ -38,11 +38,11 @@ export const Container = styled.div`
   margin: 0;
 `;
 
-export const Nav = (props) => {
+export const Nav = ({ children, color }) => {
   const Styled = styled.nav`
     grid-area: header;
     height: 100%;
-    background: darkblue;
+    background: ${color ? color : "darkblue"};
     box-shadow: 0 3px 5px rgba(0,0,0,0.5);
     ul {
       display: flex;
@@ -77,7 +77,7 @@ export const Nav = (props) => {
         <li style={{ flex: 1 }}>
           <Avatar />
         </li>
-        {props.children}
+        {children}
       </ul>
     </Styled>
   );

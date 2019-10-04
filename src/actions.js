@@ -13,3 +13,8 @@ export const incrementCount = (key) => ({
   type: 'INCREMENT_COUNT',
   key,
 });
+
+export const changeThemeColor = (color) => ({
+  type: 'CHANGE_THEME_COLOR',
+  color,
+});

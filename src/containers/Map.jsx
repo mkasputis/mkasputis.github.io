@@ -32,28 +32,26 @@ const ErrorMsg = (props) => (
 );
 
 class Map extends React.Component {
-  state = {
-    id: 'mapid',
-    overlays: [],
-    error: null,
-    counts: {},
-  }
+  id = 'mapid'
 
   componentDidMount() {
     // get overlays from store and create leaflet layers
-    const { overlays, center, zoom } = this.props;
+    const { overlays, shapeColor, center, zoom } = this.props;
     let geoJsonLayers = {};
     if (overlays) {
       // TODO: add style option to geoJSON factory function to match current App theme
       for (let name in overlays) {
-        geoJsonLayers[name] = L.geoJSON(overlays[name]);
+        geoJsonLayers[name] = L.geoJSON(
+          overlays[name],
+          { style: { color: shapeColor } }
+        );
       }
     }
 
     // initialize leaflet map with base tile layer and overlay layers
     this.tileLayer = L.tileLayer(OSM_URL, OSM_OPTS);
     const layers = [this.tileLayer, ...Object.values(geoJsonLayers)];
-    this.map = L.map(this.state.id, {
+    this.map = L.map(this.id, {
       center,
       zoom,
       layers,
@@ -85,8 +83,9 @@ class Map extends React.Component {
   }
 
   addOverlay = (event) => {
-    const { dispatch, counts } = this.props;
+    const { dispatch, counts, shapeColor } = this.props;
     const { layer, layerType } = event;
+    layer.setStyle({ color: shapeColor });
 
     // get a unique layer name based on shape
     let count = counts[layerType] || 0;
@@ -103,19 +102,12 @@ class Map extends React.Component {
   }
 
   render() {
-    const { id, error } = this.state;
     return (
-      <Div id={id}>
-        { error && <ErrorMsg /> }
+      <Div id={this.id}>
       </Div>
     );
   }
 }
-
-const mapStateToProps = ({ overlays, counts }) => ({
-  overlays,
-  counts,
-});
 
 class MapErrorBoundary extends React.Component {
   state = { error: null };
@@ -128,6 +120,12 @@ class MapErrorBoundary extends React.Component {
     return this.state.error ? <ErrorMsg /> : this.props.children;
   }
 }
+
+const mapStateToProps = ({ overlays, counts, theme }) => ({
+  overlays,
+  counts,
+  shapeColor: theme.color,
+});
 
 export default connect(mapStateToProps)((props) => (
   <MapErrorBoundary>

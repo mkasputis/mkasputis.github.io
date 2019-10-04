@@ -29,8 +29,13 @@ const counts = (state = {}, action) => {
   }
 };
 
-const error = (state = null, action) => {
+const theme = (state = { color: 'darkblue' }, action) => {
   switch (action.type) {
+    case 'CHANGE_THEME_COLOR':
+      return {
+        ...state,
+        color: action.color,
+      };
     default:
       return state;
   }
@@ -39,5 +44,5 @@ const error = (state = null, action) => {
 export default combineReducers({
   overlays,
   counts,
-  error,
+  theme,
 });

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   HashRouter as Router,
   Route,
@@ -12,10 +13,18 @@ import {
   Body,
 } from './layout/Styles';
 import Map from '../containers/Map';
+import { changeThemeColor } from '../actions';
 
-const Index = () => (
+let Index = connect()((props) => (
+  <>
   <p>Welcome to my github page! For now the bulk of this React App can be found in the <a href='#/mapping'>Mapping</a> section. You can view this as more of a proof of concept page for using basic React with Leaflet without the help of react-leaflet.</p>
-);
+  <p>Also feel free to change the color theme around. Don't be surprised if the map follows suit!</p>
+  <input type='color' onChange={(event) => {
+    const { value } = event.target;
+    props.dispatch(changeThemeColor(value));
+  }} />
+  </>
+));
 
 const Skills = () => (
   <ul>
@@ -72,15 +81,19 @@ const About = () => (
   <p>My name is Matthew Kasputis and I am a javascript developer with a GIS background. I'm currently working with React to make user interfaces (and this page as well). You can check out my other programming interests in the <a href='#/skills'>skills</a> section.</p>
 );
 
+const ThemedNav = connect(
+  ({ theme }) => ({ color: theme.color }),
+)(Nav);
+
 export default () => (
   <Router>
     <Container>
-      <Nav>
+      <ThemedNav>
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/skills'>Skills</NavLink>
         <NavLink to='/mapping'>Mapping</NavLink>
         <NavLink to='/about'>About</NavLink>
-      </Nav>
+      </ThemedNav>
       <Body>
         <Route path='/' exact component={Index} />
         <Route path='/skills' component={Skills} />
