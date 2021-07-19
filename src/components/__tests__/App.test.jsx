@@ -1,11 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux'
 import { render, fireEvent, waitForElement } from '@testing-library/react';
 
 import App from '../App';
+import store from '../../store'
 
 describe('full app tests', () => {
   it('finds React in skills', async () => {
-    const { container, getByText, getByTestId } = render(<App/>);
+    const { container, getByText, getByTestId } = render(
+      <Provider store={store}><App /></Provider>
+    );
     fireEvent.click(getByText(/skills/i));
     const itemNode = await waitForElement(
       () => getByText(/javascript/i)
