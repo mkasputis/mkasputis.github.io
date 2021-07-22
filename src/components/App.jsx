@@ -1,34 +1,39 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {
-  HashRouter as Router,
-  Route,
-} from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import { connect } from "react-redux";
+import { HashRouter as Router, Route } from "react-router-dom";
+import styled from "styled-components";
 
-import {
-  Container,
-  Nav,
-  NavLink,
-  Body,
-} from './layout/Styles';
-import Map from '../containers/Map';
-import { changeThemeColor } from '../actions';
+import { Container, Nav, NavLink, Body } from "./layout/Styles";
+import Map from "../containers/Map";
+import { changeThemeColor } from "../actions";
 
 let Index = connect()((props) => (
   <>
-  <p>Welcome to my github page! For now the bulk of this React App can be found in the <a href='#/mapping'>Mapping</a> section. You can view this as more of a proof of concept page for using basic React with Leaflet without the help of react-leaflet.</p>
-  <p>Also feel free to change the color theme around. Don't be surprised if the map follows suit!</p>
-  <input type='color' onChange={(event) => {
-    const { value } = event.target;
-    props.dispatch(changeThemeColor(value));
-  }} />
+    <p>Test</p>
+    <p>
+      Welcome to my github page! For now the bulk of this React App can be found
+      in the <a href="#/mapping">Mapping</a> section. You can view this as more
+      of a proof of concept page for using basic React with Leaflet without the
+      help of react-leaflet.
+    </p>
+    <p>
+      Also feel free to change the color theme around. Don't be surprised if the
+      map follows suit!
+    </p>
+    <input
+      type="color"
+      onChange={(event) => {
+        const { value } = event.target;
+        props.dispatch(changeThemeColor(value));
+      }}
+    />
   </>
 ));
 
 const Skills = () => (
   <ul>
-    <li>Javascript
+    <li>
+      Javascript
       <ul>
         <li>React</li>
         <li>Redux</li>
@@ -36,18 +41,21 @@ const Skills = () => (
         <li>ES6</li>
       </ul>
     </li>
-    <li>Python
+    <li>
+      Python
       <ul>
         <li>Django</li>
         <li>arcpy</li>
       </ul>
     </li>
-    <li>Php
+    <li>
+      Php
       <ul>
         <li>Laravel</li>
       </ul>
     </li>
-    <li>ArcGIS
+    <li>
+      ArcGIS
       <ul>
         <li>v10.2</li>
         <li>v9</li>
@@ -78,27 +86,30 @@ const Mapping = () => (
 );
 
 const About = () => (
-  <p>My name is Matthew Kasputis and I am a javascript developer with a GIS background. I'm currently working with React to make user interfaces (and this page as well). You can check out my other programming interests in the <a href='#/skills'>skills</a> section.</p>
+  <p>
+    My name is Matthew Kasputis and I am a javascript developer with a GIS
+    background. I'm currently working with React to make user interfaces (and
+    this page as well). You can check out my other programming interests in the{" "}
+    <a href="#/skills">skills</a> section.
+  </p>
 );
 
-const ThemedNav = connect(
-  ({ theme }) => ({ color: theme.color }),
-)(Nav);
+const ThemedNav = connect(({ theme }) => ({ color: theme.color }))(Nav);
 
 export default () => (
   <Router>
     <Container>
       <ThemedNav>
-        <NavLink to='/'>Home</NavLink>
-        <NavLink to='/skills'>Skills</NavLink>
-        <NavLink to='/mapping'>Mapping</NavLink>
-        <NavLink to='/about'>About</NavLink>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/skills">Skills</NavLink>
+        <NavLink to="/mapping">Mapping</NavLink>
+        <NavLink to="/about">About</NavLink>
       </ThemedNav>
       <Body>
-        <Route path='/' exact component={Index} />
-        <Route path='/skills' component={Skills} />
-        <Route path='/mapping' component={Mapping} />
-        <Route path='/about' component={About} />
+        <Route path="/" exact component={Index} />
+        <Route path="/skills" component={Skills} />
+        <Route path="/mapping" component={Mapping} />
+        <Route path="/about" component={About} />
       </Body>
     </Container>
   </Router>
