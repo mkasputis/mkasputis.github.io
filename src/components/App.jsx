@@ -32,13 +32,15 @@ let Index = connect()((props) => (
 
 const Skills = () => (
   <ul>
+    <li>Typescript</li>
     <li>
       Javascript
       <ul>
         <li>React</li>
-        <li>Redux</li>
+        <li>Redux (with/without Redux Toolkit)</li>
         <li>Node</li>
         <li>ES6</li>
+        <li>Leaflet</li>
       </ul>
     </li>
     <li>
