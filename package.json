@@ -22,6 +22,7 @@
     "@webpack-cli/serve": "^1.5.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
+    "cross-env": "^7.0.3",
     "css-loader": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
@@ -42,7 +43,7 @@
     "test": "jest",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "cross-env NODE_DEBUG=gh-pages gh-pages -d dist"
   },
   "jest": {
     "moduleNameMapper": {
