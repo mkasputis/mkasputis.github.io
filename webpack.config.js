@@ -28,7 +28,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
   },
   devServer: {
-    contentBase: "./dist",
+    contentBase: "./public",
     port: 8080,
   },
   devtool: "source-map",
