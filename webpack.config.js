@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: "./src",
@@ -10,8 +11,33 @@ module.exports = {
         use: ["ts-loader"],
       },
       {
-        test: /\.s?[ac]ss$/i,
-        use: ["style-loader", "css-loader"],
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: { sourceMap: true },
+          },
+        ],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require("sass"),
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/i,
@@ -23,7 +49,7 @@ module.exports = {
       },
     ],
   },
-  //plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [new MiniCssExtractPlugin()],
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
   },

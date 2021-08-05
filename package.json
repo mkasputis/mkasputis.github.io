@@ -13,6 +13,7 @@
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
@@ -24,9 +25,12 @@
     "css-loader": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
+    "mini-css-extract-plugin": "^2.2.0",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "rimraf": "^3.0.2",
+    "sass": "^1.37.5",
+    "sass-loader": "^12.1.0",
     "style-loader": "^1.0.0",
     "ts-jest": "^27.0.4",
     "ts-loader": "^9.2.3",
@@ -38,9 +42,9 @@
     "xml-loader": "^1.2.1"
   },
   "scripts": {
-    "prestart": "rimraf dist/main.js*",
     "start": "webpack serve --open --hot --mode development",
     "test": "jest",
+    "prebuild": "cp public/* dist",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
     "deploy": "cross-env NODE_DEBUG=gh-pages gh-pages -d dist"

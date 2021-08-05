@@ -1,5 +1,4 @@
 *.sw[a-p]
 *~
 node_modules
-dist/index.html
-dist/favicon.ico
+dist

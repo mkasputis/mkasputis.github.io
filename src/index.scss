@@ -1,0 +1,7 @@
+// custom bootstrap (custom.scss also imports bootstrap)
+// https://getbootstrap.com/docs/5.0/customize/sass/#importing
+@import "styles/custom";
+//@import "styles-v4/custom";
+:root {
+  --primary: #007bff;
+}

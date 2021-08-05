@@ -21,7 +21,6 @@ import {
 
 const Div = styled.div`
   height: 100%;
-  margin: 5px;
   background: #eee;
   .leaflet-control-layers {
     text-align: left;
