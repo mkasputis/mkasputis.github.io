@@ -16,14 +16,18 @@ import { PersistGate } from "redux-persist/integration/react";
 import map from "../features/map/mapSlice";
 import theme from "../features/theme/themeSlice";
 
+const rootReducer = combineReducers({
+  map,
+  theme,
+});
+
 const store = configureStore({
+  // TODO: come back and fix typing using persistReducer<[generics]>
+  // @ts-ignore
   reducer: persistReducer(
     { storage, key: "root", version: 1 },
-    combineReducers({
-      map,
-      theme,
-    })
-  ),
+    rootReducer
+  ) as typeof rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

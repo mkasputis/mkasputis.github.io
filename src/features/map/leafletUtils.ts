@@ -7,7 +7,9 @@ import L from "leaflet";
 import "leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
+// @ts-ignore
 import iconUrl from "leaflet/dist/images/marker-icon.png";
+// @ts-ignore
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
 L.Marker.prototype.options.icon = L.icon({ iconUrl, shadowUrl });
@@ -19,8 +21,16 @@ const OSM_OPTS = { attribution: OSM_ATTRIB };
 const ID = "mapid";
 
 export const createOsmTileLayer = () => L.tileLayer(OSM_URL, OSM_OPTS);
-export const overlaysToGeoJson = (overlays = [], color = "blue") => {
-  let record = {};
+
+export type GeoJSON = Parameters<typeof L.geoJSON>[0];
+export type GeoJSONRecord = Record<string, GeoJSON.Feature>;
+export type LayerRecord = Record<string, L.Layer>;
+
+export const overlaysToGeoJson = (
+  overlays = {} as GeoJSONRecord,
+  color = "blue"
+) => {
+  let record: Record<string, L.GeoJSON> = {};
   for (let name in overlays) {
     record[name] = L.geoJSON(overlays[name], {
       style: { color, opacity: 0.5, weight: 4 },
@@ -28,12 +38,19 @@ export const overlaysToGeoJson = (overlays = [], color = "blue") => {
   }
   return record;
 };
+
 export const createMap = ({
   center,
   zoom,
   layers,
   tileLayer,
   geoJsonLayers,
+}: {
+  center: [number, number];
+  zoom: number;
+  layers: L.Layer[];
+  tileLayer: L.TileLayer;
+  geoJsonLayers: any;
 }) => {
   const map = L.map(ID, {
     center,
@@ -45,6 +62,7 @@ export const createMap = ({
   const layerControl = L.control.layers({ osm: tileLayer }, geoJsonLayers);
   layerControl.addTo(map);
 
+  // @ts-ignore
   // draw control
   const drawControl = new L.Control.Draw({
     draw: {

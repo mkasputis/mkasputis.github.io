@@ -168,7 +168,18 @@
   $l2: map-get($c2, l);
   $a2: map-get($c2, a);
 
-  $h: calc((#{$h1} + #{$h2}) / 2);
+  // if lightness = 100% don't add this in hue calculation
+  // also lightness should be around 90% when the darken function is called
+  // but I think the default weight=50% makes lightness 50%
+  //$h: calc((#{$h1} + #{$h2}) / 2);
+  $h: 0;
+  @if ($l1 == 100% or $s1 == 0% or $l1 == 0% or $s1 == 100%) {
+    $h: calc(#{$h2});
+  } @else if ($l2 == 100% or $s2 == 0% or $l2 == 0% or $s2 == 100%) {
+    $h: calc(#{$h1});
+  } @else {
+    $h: calc((#{$h1} + #{$h2}) / 2);
+  }
   $s: calc((#{$s1} + #{$s2}) / 2);
   $l: calc((#{$l1} + #{$l2}) / 2);
   $a: calc((#{$a1} + #{$a2}) / 2);

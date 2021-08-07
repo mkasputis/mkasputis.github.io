@@ -1,9 +1,10 @@
 import React from "react";
 import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import type { GeoJSON, GeoJSONRecord } from "./leafletUtils";
 
 export interface MapState {
-  overlays: Record<string, any>;
+  overlays: GeoJSONRecord; //Record<string, GeoJSON>;
   shapeCounts: Record<string, number>;
 }
 
