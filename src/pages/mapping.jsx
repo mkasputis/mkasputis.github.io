@@ -6,62 +6,12 @@ import React from "react";
 import styled from "styled-components";
 import { Row, Col, Button, Table } from "react-bootstrap";
 import LeafletMap from "../features/map/LeafletMap";
+import ShapeTable from "../features/map/ShapeTable";
+import Download from "../features/map/Download";
 import ReactLeafletMap from "../features/map/ReactLeafletMap";
 import SimpleMap from "../features/map/SimpleMap";
 import D3Map from "../features/map/D3Map";
 import D3Globe from "../features/map/D3Globe";
-
-const BootstrapExample = () => (
-  <>
-    <Row>
-      <Col>
-        <Button className="mb-4 bg-gradient" variant="primary">
-          sup
-        </Button>
-      </Col>
-    </Row>
-    <Row>
-      <Col>
-        <Table striped bordered hover variant="primary">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-          </tbody>
-        </Table>
-      </Col>
-    </Row>
-  </>
-);
 
 export const MappingPage = () => (
   <>
@@ -80,7 +30,19 @@ export const MappingPage = () => (
       </Col>
     </Row>
     {/*<D3Globe center={[42.366, -71.975]} zoom={9} />*/}
-    <BootstrapExample />
+    <Row>
+      <Col>
+        <Download as={Button} className="mb-4 bg-gradient" variant="primary">
+          Download
+        </Download>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <ShapeTable as={Table} striped bordered hover variant="primary" />
+        <Table striped bordered hover variant="primary"></Table>
+      </Col>
+    </Row>
   </>
 );
 
