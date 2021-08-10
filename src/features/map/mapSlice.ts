@@ -4,29 +4,30 @@ import { RootState } from "../../app/store";
 import type { GeoJSON, GeoJSONRecord } from "./leafletUtils";
 
 export interface MapState {
+  //leaflet: L.Map | null;
   overlays: GeoJSONRecord; //Record<string, GeoJSON>;
   shapeCounts: Record<string, number>;
+  position: { lat: number; lng: number; zoom: number };
 }
 
 export const generateId = createAction("generateId");
 
 let shapeCounts: any = {};
-/**
- * returns simple unique ID for display
- * and also so it doesn't overwrite any geoJson in the OverlaysState object
- */
-function getId(shapeType: string = "shape"): string {
-  if (typeof shapeCounts?.[shapeType] === "undefined") {
-    shapeCounts[shapeType] = 0;
-  }
-  shapeCounts[shapeType] += 1;
-  return `${shapeType} ${shapeCounts?.[shapeType]}`;
-}
 
 export const mapSlice = createSlice({
   name: "map",
-  initialState: { overlays: {}, shapeCounts: {} } as MapState,
+  initialState: {
+    //leaflet: null,
+    overlays: {},
+    shapeCounts: {},
+    position: { lat: 42.366, lng: -71.975, zoom: 9 },
+  } as MapState,
   reducers: {
+    /*
+    initLeaflet: (state, { payload }) => {
+      state.leaflet = payload;
+    },
+    */
     incrementShapeCount: (
       state,
       { payload: shapeType }: PayloadAction<string>
@@ -42,22 +43,28 @@ export const mapSlice = createSlice({
     ) => {
       state.overlays[id] = overlay;
     },
-    XaddOverlay: (
+    deleteOverlay: (state, { payload: id }) => {
+      delete state.overlays[id];
+    },
+    updatePosition: (
       state,
-      action: PayloadAction<{ layerType: string; overlay: any }>
+      {
+        payload: { lat, lng, zoom },
+      }: PayloadAction<{ lat: number; lng: number; zoom: number }>
     ) => {
-      const { layerType, overlay } = action.payload;
-      if (typeof state.shapeCounts?.[layerType] === "undefined") {
-        state.shapeCounts[layerType] = 0;
-      }
-      state.shapeCounts[layerType] += 1;
-      let id = `${layerType} ${state.shapeCounts?.[layerType]}`;
-      state.overlays[id] = overlay;
+      state.position = { ...state.position, lat, lng, zoom };
     },
   },
 });
 
 export const selectOverlays = (state: RootState) => state.map.overlays;
 export const selectShapeCounts = (state: RootState) => state.map.shapeCounts;
-export const { addOverlay, incrementShapeCount } = mapSlice.actions;
+export const selectPosition = (state: RootState) => state.map.position;
+export const {
+  //initLeaflet,
+  addOverlay,
+  deleteOverlay,
+  incrementShapeCount,
+  updatePosition,
+} = mapSlice.actions;
 export default mapSlice.reducer;

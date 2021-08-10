@@ -17,6 +17,7 @@ import map from "../features/map/mapSlice";
 import theme from "../features/theme/themeSlice";
 
 const rootReducer = combineReducers({
+  //map: persistReducer({ key: "map", storage, blacklist: ["leaflet"] }, map),
   map,
   theme,
 });
@@ -25,13 +26,23 @@ const store = configureStore({
   // TODO: come back and fix typing using persistReducer<[generics]>
   // @ts-ignore
   reducer: persistReducer(
-    { storage, key: "root", version: 1 },
+    //{ storage, key: "root", blacklist: ["map"] },
+    { storage, key: "root" },
     rootReducer
   ) as typeof rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          //"map/initLeaflet",
+          //initLeaflet.toString(),
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+        ],
       },
     }),
 });

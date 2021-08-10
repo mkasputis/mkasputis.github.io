@@ -10,8 +10,10 @@ import { selectPrimary } from "../theme/themeSlice";
 import {
   selectOverlays,
   selectShapeCounts,
+  selectPosition,
   addOverlay,
   incrementShapeCount,
+  updatePosition,
 } from "./mapSlice";
 import {
   createMap,
@@ -23,6 +25,10 @@ import {
 const Div = styled.div`
   height: 100%;
   background: #eee;
+  text-align: center;
+  p {
+    padding: 1rem;
+  }
   .leaflet-control-layers {
     text-align: left;
   }
@@ -38,8 +44,11 @@ const Map: React.FC<MapProps> = ({ center, zoom }) => {
   const dispatch = useAppDispatch();
   const primaryColor = useAppSelector(selectPrimary);
   const overlays = useAppSelector(selectOverlays);
+  const position = useAppSelector(selectPosition);
   const shapeCountsRef = useAppSelectorRef(selectShapeCounts);
   const shapeCounts = useAppSelector(selectShapeCounts);
+  center = [position.lat, position.lng];
+  zoom = position.zoom;
 
   React.useEffect(() => {
     geoJsonLayers = overlaysToGeoJson(overlays, primaryColor);
@@ -56,6 +65,11 @@ const Map: React.FC<MapProps> = ({ center, zoom }) => {
     // @ts-ignore
     // add listener to for drawing events that dispatch to store
     map.on(L.Draw.Event.CREATED, handleCreateEvent);
+    map.on("move", ({ target }) => {
+      const { lat, lng } = target.getCenter();
+      const zoom = target.getZoom();
+      dispatch(updatePosition({ lat, lng, zoom }));
+    });
   }, []);
 
   function handleCreateEvent(event: any) {

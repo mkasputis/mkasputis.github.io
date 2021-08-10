@@ -1,9 +1,24 @@
 import React from "react";
+import Card from "react-bootstrap/Card";
+import Alert from "react-bootstrap/Alert";
 import { useAppDispatch } from "../app/hooks";
 import { change as changeTheme } from "../features/theme/themeSlice";
+import { hexIsTooLight } from "../features/theme/colorUtils";
 import { throttle } from "../utils";
 
+const ColorAlert = ({ value }) => {
+  if (typeof value !== "undefined" && hexIsTooLight(value)) {
+    return (
+      <Alert className="mt-2" variant="danger">
+        Warning: this color may make map shapes and links harder to see
+      </Alert>
+    );
+  }
+  return null;
+};
+
 export const HomePage = (props) => {
+  const [colorValue, setColorValue] = React.useState();
   const dispatch = useAppDispatch();
   const throttledDispatch = throttle(dispatch, 200);
   return (
@@ -18,13 +33,30 @@ export const HomePage = (props) => {
         Also feel free to change the color theme around. Don't be surprised if
         the map follows suit!
       </p>
-      <input
-        type="color"
-        onChange={(event) => {
-          const { value } = event.target;
-          throttledDispatch(changeTheme(value));
-        }}
-      />
+      <Card>
+        <Card.Body>
+          <Card.Title>Color Picker</Card.Title>
+          <input
+            className="btn btn-primary"
+            style={{ padding: ".5rem", height: "3rem", width: "5rem" }}
+            type="color"
+            onChange={(event) => {
+              const { value } = event.target;
+              throttledDispatch((dispatch) => {
+                setColorValue(value);
+                return dispatch(changeTheme(value));
+              });
+            }}
+            /*
+            onChange={(event) => {
+              const { value } = event.target;
+              throttledDispatch(changeTheme(value));
+            }}
+            */
+          />
+          <ColorAlert value={colorValue} />
+        </Card.Body>
+      </Card>
     </>
   );
 };

@@ -5,12 +5,12 @@
  * there are a few updates to make this work with Bootstrap v5
  */
 
-function printCss(suffix = "", convert: any) {
+export function printCss(suffix = "", convert: any) {
   return (value: any, property: any) =>
     `--${property}${suffix ? "-" + suffix : ""}: ${convert(value)}`;
 }
 
-function rgbToHsl(red: any, green: any, blue: any) {
+export function rgbToHsl(red: any, green: any, blue: any) {
   const r = Number(red?.trim?.() ?? red) / 255;
   const g = Number(green?.trim?.() ?? green) / 255;
   const b = Number(blue?.trim?.() ?? blue) / 255;
@@ -198,13 +198,22 @@ const colorNameMap: Record<string, string> = {
 /**
  * https://stackoverflow.com/questions/1573053/javascript-function-to-convert-color-names-to-hex-codes/24390910
  */
-function colorNameToHex(color: string) {
+export function colorNameToHex(color: string) {
   if (typeof colorNameMap[color.toLowerCase()] != "undefined")
     return colorNameMap[color.toLowerCase()];
   return false;
 }
 
-function hexToRgb(hex: string): [number, number, number] {
+export function hexToYiq(hex: string): number {
+  const [r, g, b] = hexToRgb(hex);
+  return (r * 299 + g * 587 + b * 114) / 1000;
+}
+
+export function hexIsTooLight(hex: string): boolean {
+  return hexToYiq(hex) >= 128;
+}
+
+export function hexToRgb(hex: string): [number, number, number] {
   let r, g, b;
   if (hex.length === 4) {
     let tmp;
