@@ -2,17 +2,27 @@ import React from "react";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import NavLink from "react-bootstrap/NavLink";
-import { CssVariables, GlobalStyle, MyNavbar } from "./layout";
+import { CssVariables, MyNavbar } from "./layout";
 import HomePage from "./home";
 import SkillsPage from "./skills";
 import MappingPage from "./mapping";
 import AboutPage from "./about";
 import TempPage from "./temp";
 
-const MyLink = ({ to, children, ...props }) => (
+const MyLinkOld: React.FC<{ to: string }> = ({ to, children, ...props }) => (
   <Link {...props} to={to} component={NavLink}>
     {children}
   </Link>
+);
+
+/**
+ * Note: use <Navlink as={Link}> rather than <Link component={NavLink}>
+ * so that react-router doesn't pass invalid props to NavLink like `navigate`
+ */
+const MyLink: React.FC<{ to: string }> = ({ to, children, ...props }) => (
+  <NavLink as={Link} to={to} {...props}>
+    {children}
+  </NavLink>
 );
 
 export default () => (
