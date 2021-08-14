@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 import type { GeoJSON, GeoJSONRecord } from "./leafletUtils";
 
 export interface MapState {
-  //leaflet: L.Map | null;
+  removeLayerId: string | null;
   overlays: GeoJSONRecord; //Record<string, GeoJSON>;
   shapeCounts: Record<string, number>;
   position: { lat: number; lng: number; zoom: number };
@@ -23,11 +23,6 @@ export const mapSlice = createSlice({
     position: { lat: 42.366, lng: -71.975, zoom: 9 },
   } as MapState,
   reducers: {
-    /*
-    initLeaflet: (state, { payload }) => {
-      state.leaflet = payload;
-    },
-    */
     incrementShapeCount: (
       state,
       { payload: shapeType }: PayloadAction<string>
@@ -61,7 +56,6 @@ export const selectOverlays = (state: RootState) => state.map.overlays;
 export const selectShapeCounts = (state: RootState) => state.map.shapeCounts;
 export const selectPosition = (state: RootState) => state.map.position;
 export const {
-  //initLeaflet,
   addOverlay,
   deleteOverlay,
   incrementShapeCount,

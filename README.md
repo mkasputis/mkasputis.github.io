@@ -12,6 +12,7 @@ Inside the source code you'll find the React w/ Redux App powering the github pa
 - see if stripping useState out of home.jsx and using theme redux state makes it easier/harder to read
 - fix hsl values being calculated for original theme colors (Alert variant="danger" in default v4 BS has value of #f8d7da and the hsl calculated is hsl(354deg, 36%, 77%, 1) seems it should be more like hsl(354deg, 50%, 85%, 1);
 - fix nested-persists for root.map.leaflet key that isn't working for some reason following (this)[https://github.com/rt2zz/redux-persist#nested-persists] example.
+- create [sticky header](https://examples.bootstrap-table.com/#extensions/sticky-header.html) for shape table
 
 ### webpack & builds
 

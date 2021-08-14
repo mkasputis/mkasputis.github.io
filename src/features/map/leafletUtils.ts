@@ -11,20 +11,21 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 // @ts-ignore
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+import { DeferredControl } from "./LeafletContext";
 
 L.Marker.prototype.options.icon = L.icon({ iconUrl, shadowUrl });
+
+export type GeoJSON = Parameters<typeof L.geoJSON>[0];
+export type GeoJSONRecord = Record<string, GeoJSON.Feature>;
+export type LayerRecord = Record<string, L.Layer>;
 
 const OSM_URL = "https://{s}.tile.osm.org/{z}/{x}/{y}.png";
 const OSM_ATTRIB =
   '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
 const OSM_OPTS = { attribution: OSM_ATTRIB };
-const ID = "mapid";
+export const CONTAINER_ID = "MapContainer";
 
 export const createOsmTileLayer = () => L.tileLayer(OSM_URL, OSM_OPTS);
-
-export type GeoJSON = Parameters<typeof L.geoJSON>[0];
-export type GeoJSONRecord = Record<string, GeoJSON.Feature>;
-export type LayerRecord = Record<string, L.Layer>;
 
 export const overlaysToGeoJson = (
   overlays = {} as GeoJSONRecord,
@@ -39,36 +40,53 @@ export const overlaysToGeoJson = (
   return record;
 };
 
-export const createMap = ({
-  center,
-  zoom,
-  layers,
-  tileLayer,
-  geoJsonLayers,
-}: {
-  center: [number, number];
-  zoom: number;
-  layers: L.Layer[];
-  tileLayer: L.TileLayer;
-  geoJsonLayers: any;
-}) => {
-  const map = L.map(ID, {
+export const initializeMap = (
+  map: L.Map,
+  {
     center,
     zoom,
+    control,
     layers,
-    //drawControl: true,
-  });
+    tileLayer,
+    geoJsonLayers,
+  }: {
+    center: [number, number];
+    zoom?: number;
+    control?: DeferredControl;
+    layers?: L.Layer[];
+    tileLayer?: L.TileLayer;
+    geoJsonLayers?: LayerRecord;
+  } = { center: [0, 0] }
+) => {
+  map.setView(center, zoom);
+  if (typeof tileLayer === "undefined") {
+    tileLayer = createOsmTileLayer();
+    layers = [tileLayer, ...layers!];
+  }
+  map.addLayer(L.layerGroup(layers));
   // layer control shows on top right by default
-  const layerControl = L.control.layers({ osm: tileLayer }, geoJsonLayers);
-  layerControl.addTo(map);
+  if (control?.layers) {
+    control.layers.addBaseLayer(tileLayer, "osm");
+    if (geoJsonLayers) {
+      Object.entries(geoJsonLayers).map(([name, layer]) =>
+        control.layers.addOverlay(layer, name)
+      );
+    }
+  } else {
+    const layerControl = L.control.layers({ osm: tileLayer }, geoJsonLayers);
+    layerControl.addTo(map);
+  }
 
   // @ts-ignore
   // draw control
   const drawControl = new L.Control.Draw({
     draw: {
+      // @ts-ignore
       // TODO: wth it's not boolean???
       polyline: true,
+      // @ts-ignore
       polygon: true,
+      // @ts-ignore
       rectangle: true,
       circle: false,
       marker: false,
@@ -76,6 +94,5 @@ export const createMap = ({
     },
   });
   drawControl.addTo(map);
-
-  return { map, layerControl };
+  //return { map, layerControl };
 };

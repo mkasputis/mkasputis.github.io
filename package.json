@@ -19,6 +19,7 @@
   "devDependencies": {
     "@testing-library/react": "^9.2.0",
     "@types/leaflet": "^1.7.4",
+    "@types/leaflet-draw": "^1.0.5",
     "@types/react-router-dom": "^5.1.8",
     "@types/styled-components": "^5.1.12",
     "@webpack-cli/serve": "^1.5.1",

@@ -5,3 +5,21 @@
 :root {
   --primary: #007bff;
 }
+
+.LeafletMap {
+  &__container {
+    height: 100%;
+    text-align: center;
+    background: #f2efe9;
+
+    .leaflet-control-layers {
+      text-align: left;
+    }
+  }
+  &--error {
+    color: red;
+  }
+  &__text {
+    padding: 1rem;
+  }
+}
