@@ -42,10 +42,25 @@ const ShapeTable: React.FC<{ as: string | React.ElementType }> = ({
   /**
    * if order doesn't get maintained switch to this
    */
-  function leafletRemoveByName(name: string) {}
+  function leafletRemoveByName(name: string) {
+    const layers = control?.layers?._layers;
+    const [layerToRemove] =
+      layers
+        ?.filter((layer) => layer?.name === name)
+        .map((layer) => layer?.layer) ?? [];
+    if (layerToRemove) {
+      control?.layers.removeLayer(layerToRemove);
+      map?.removeLayer(layerToRemove);
+    } else {
+      console.log(`could not find layer by the name of "${name}" to remove`);
+    }
+  }
 
   return (
-    <Table {...tableProps}>
+    <Table
+      {...tableProps}
+      className={`table-${overlaysArr.length === 0 ? "secondary" : "primary"}`}
+    >
       <thead>
         <tr>
           <th>id</th>
@@ -67,7 +82,8 @@ const ShapeTable: React.FC<{ as: string | React.ElementType }> = ({
               <td>
                 <Button
                   onClick={() => {
-                    leafletRemoveByIndex(index);
+                    //leafletRemoveByIndex(index);
+                    leafletRemoveByName(key);
                     dispatch(deleteOverlay(key));
                   }}
                 >
