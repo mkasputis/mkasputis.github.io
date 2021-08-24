@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import overlays from "../features/overlays/overlaysSlice";
+import map from "../features/map/mapSlice";
 import theme from "../features/theme/themeSlice";
 
 const store = configureStore({
   reducer: {
-    overlays,
+    map,
     theme,
   },
 });

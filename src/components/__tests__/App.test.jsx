@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { render, fireEvent, waitForElement } from "@testing-library/react";
 
 import App from "../App";
-import store from "../../store";
+import store from "../../app/store";
 
 describe("full app tests", () => {
   it("finds React in skills", async () => {

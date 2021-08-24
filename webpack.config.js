@@ -1,24 +1,24 @@
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.jsx",
+  entry: "./src",
   module: {
     rules: [
       {
-        test: /\.(t|j)sx?$/,
+        test: /\.(t|j)sx?$/i,
         exclude: /node_modules/,
         use: ["ts-loader"],
       },
       {
-        test: /\.css$/,
+        test: /\.s?[ac]ss$/i,
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.svg$/,
+        test: /\.svg$/i,
         use: ["xml-loader"],
       },
       {
-        test: /\.(png|woff|woff2)$/,
+        test: /\.(png|woff|woff2)$/i,
         use: ["url-loader"],
       },
     ],

@@ -2,14 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { HashRouter as Router, Route } from "react-router-dom";
 import styled from "styled-components";
+import { Table, Button } from "react-bootstrap";
 
 import { Container, Nav, NavLink, Body } from "./layout/Styles";
-import Map from "../containers/Map";
-import { changeThemeColor } from "../actions";
+//import Map from "../containers/Map";
+import Map from "../features/map/LeafletMap";
+//import { changeThemeColor } from "../actions";
+import { change as changeThemeColor } from "../features/theme/themeSlice";
 
 let Index = connect()((props) => (
   <>
-    <p>Test</p>
     <p>
       Welcome to my github page! For now the bulk of this React App can be found
       in the <a href="#/mapping">Mapping</a> section. You can view this as more
@@ -96,7 +98,7 @@ const About = () => (
   </p>
 );
 
-const ThemedNav = connect(({ theme }) => ({ color: theme.color }))(Nav);
+const ThemedNav = connect(({ theme }) => ({ color: theme.primary }))(Nav);
 
 export default () => (
   <Router>
