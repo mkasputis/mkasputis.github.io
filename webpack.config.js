@@ -1,8 +1,8 @@
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+// using defaults ./src/index, ./dist/main.js, etc
 module.exports = {
-  entry: "./src",
   module: {
     rules: [
       {

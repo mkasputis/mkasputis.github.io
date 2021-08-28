@@ -1,11 +1,12 @@
 import React from "react";
 import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import type { GeoJSON, GeoJSONRecord } from "./leafletUtils";
+//import type { GeoJSON, GeoJSONRecord } from "./leafletUtils";
 
 export interface MapState {
   removeLayerId: string | null;
-  overlays: GeoJSONRecord; //Record<string, GeoJSON>;
+  //overlays: GeoJSONRecord; //Record<string, GeoJSON>;
+  overlays: any;
   shapeCounts: Record<string, number>;
   position: { lat: number; lng: number; zoom: number };
 }
@@ -17,7 +18,6 @@ let shapeCounts: any = {};
 export const mapSlice = createSlice({
   name: "map",
   initialState: {
-    //leaflet: null,
     overlays: {},
     shapeCounts: {},
     position: { lat: 42.366, lng: -71.975, zoom: 9 },

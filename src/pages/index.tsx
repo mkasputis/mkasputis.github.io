@@ -7,7 +7,6 @@ import HomePage from "./home";
 import SkillsPage from "./skills";
 import MappingPage from "./mapping";
 import AboutPage from "./about";
-import TempPage from "./temp";
 
 const MyLinkOld: React.FC<{ to: string }> = ({ to, children, ...props }) => (
   <Link {...props} to={to} component={NavLink}>

@@ -75,7 +75,7 @@ const ShapeTable: React.FC<{ as: string | React.ElementType }> = ({
             <td colSpan={4}>start drawing shapes on the map</td>
           </tr>
         )}
-        {overlaysArr.map(([key, overlay], index) => {
+        {overlaysArr.map(([key, overlay]: [string, any], index) => {
           return (
             <tr key={key}>
               <td>{key}</td>

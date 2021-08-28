@@ -48,7 +48,7 @@
   "scripts": {
     "start": "webpack serve --open --hot --mode development",
     "test": "jest",
-    "prebuild": "cp public/* dist",
+    "prebuild": "rimraf dist/* && cp public/* dist",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
     "deploy": "cross-env NODE_DEBUG=gh-pages gh-pages -d dist"
