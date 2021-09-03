@@ -3,15 +3,10 @@
  * will add it's larger mapping modules to the webpack bundle
  */
 import React from "react";
-import { Row, Col, Button, Table } from "react-bootstrap";
-/*
-import {
-  LeafletProvider,
-  LeafletMap,
-  ShapeTable,
-  Download,
-} from "../features/map";
-*/
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 
 export const MappingPage = () => {
   const [contents, setContents] = React.useState(null);
