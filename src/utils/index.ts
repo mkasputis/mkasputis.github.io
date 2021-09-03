@@ -7,7 +7,7 @@ export function throttle(
   fn: Function,
   wait: number,
   { trailing, leading }: { trailing: boolean; leading: boolean } = defaultOpts
-): any {
+) {
   let id: any, result: any;
   return function throttledFn(...args: any[]) {
     if (id == null && leading) {

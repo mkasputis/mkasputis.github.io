@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === "production") {
  * passes through args and also sets a local variable
  * so that all args are in scope and can be inspected
  */
-export function debugFn(..._args) {
+export function debugFn(..._args: any[]): any {
   const args = _args;
   debugger;
   return args;
@@ -20,7 +20,7 @@ export function setStorageBreakpoints() {
   const storages = [
     ["localStorage", localStorage],
     ["sessionStorage", sessionStorage],
-  ];
+  ] as const;
   for (let [name, storageObj] of storages) {
     Object.defineProperty(window, name, {
       configurable: true,

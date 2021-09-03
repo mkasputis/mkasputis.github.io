@@ -1,28 +1,21 @@
 import React from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import { Link } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import { Link, LinkProps } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import NavItem from "react-bootstrap/NavItem";
-import NavLink from "react-bootstrap/NavLink";
+import NavLink, { NavLinkProps } from "react-bootstrap/NavLink";
 import Nav from "react-bootstrap/Nav";
-//import { Nav } from "react-bootstrap"; // Nav.Link is undefined
 import { useAppSelector } from "../app/hooks";
 import { Globe } from "../svg";
 import { selectPrimary } from "../features/theme/themeSlice";
 import { colorToHsl, hexIsTooLight } from "../features/theme/colorUtils";
 
-export const RootStyles = createGlobalStyle`
+export const RootStyles = createGlobalStyle<{ primary: string }>`
   :root {
     ${(props) =>
       Object.entries(props).map(([variable, color]) => {
         const hslValues = colorToHsl(color);
-        /*
-        const hslVariables = hslValues.map(
-          (suffix) => `--${variable}-${suffix}: null;`
-        );
-        return hslVariables.join("\n");
-        */
         return `
           --${variable}: ${color};
           --${variable}-h: ${hslValues[0]}deg;
@@ -39,7 +32,10 @@ export const CssVariables = () => {
   return <RootStyles primary={primary} />;
 };
 
-export const MyNavLink = (props) => (
+export const MyNavLink = (
+  //props: Partial<NavLinkProps> & Partial<LinkProps>
+  props: NavLinkProps & LinkProps
+) => (
   <NavLink>
     <Link {...props}>{props.children}</Link>
   </NavLink>
@@ -48,7 +44,7 @@ export const MyNavLink = (props) => (
 /**
  * uses Router links as children and wraps them in bootstrap links
  */
-export const MyNavbar = ({ children }) => {
+export const MyNavbar: React.FC<{ children?: any[] }> = ({ children }) => {
   const primary = useAppSelector(selectPrimary);
   const variant = hexIsTooLight(primary) ? "light" : "dark";
   return (
@@ -66,7 +62,7 @@ export const MyNavbar = ({ children }) => {
         <Navbar.Toggle aria-controls="navbar-collapse" />
         <Navbar.Collapse id="navbar-collapse" className="justify-content-end">
           <Nav>
-            {children.map((link, key) => (
+            {children?.map((link, key) => (
               <NavItem key={key}>
                 <NavLink as="div">{link}</NavLink>
               </NavItem>
@@ -82,7 +78,7 @@ export const MyNavbar = ({ children }) => {
  * children is
  * @param {*} param0
  */
-export const Layout = ({ children }) => {
+export const Layout = ({ children }: any) => {
   return (
     <Container>
       <MyNavbar></MyNavbar>

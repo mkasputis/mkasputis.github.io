@@ -6,7 +6,7 @@ import { change as changeTheme } from "../features/theme/themeSlice";
 import { hexIsTooLight } from "../features/theme/colorUtils";
 import { throttle } from "../utils";
 
-const ColorAlert = ({ value }) => {
+const ColorAlert: React.FC<{ value: string }> = ({ value }) => {
   if (typeof value !== "undefined" && hexIsTooLight(value)) {
     return (
       <Alert className="mt-2" variant="danger">
@@ -17,8 +17,8 @@ const ColorAlert = ({ value }) => {
   return null;
 };
 
-export const HomePage = (props) => {
-  const [colorValue, setColorValue] = React.useState();
+export const HomePage = () => {
+  const [colorValue, setColorValue] = React.useState<string>();
   const dispatch = useAppDispatch();
   const throttledDispatch = throttle(dispatch, 200);
   return (
@@ -30,8 +30,8 @@ export const HomePage = (props) => {
         without the help of react-leaflet.
       </p>
       <p>
-        Also feel free to change the color theme around. Don't be surprised if
-        the map follows suit!
+        Also feel free to change the color theme around which will also change
+        components' style on other pages.
       </p>
       <Card>
         <Card.Body>
@@ -42,19 +42,13 @@ export const HomePage = (props) => {
             type="color"
             onChange={(event) => {
               const { value } = event.target;
-              throttledDispatch((dispatch) => {
+              throttledDispatch((dispatch: any) => {
                 setColorValue(value);
                 return dispatch(changeTheme(value));
               });
             }}
-            /*
-            onChange={(event) => {
-              const { value } = event.target;
-              throttledDispatch(changeTheme(value));
-            }}
-            */
           />
-          <ColorAlert value={colorValue} />
+          <ColorAlert value={colorValue ?? ""} />
         </Card.Body>
       </Card>
     </>

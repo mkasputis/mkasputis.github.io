@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { SkillsPage } from "../skills";
 
 /**
@@ -14,8 +14,8 @@ import { SkillsPage } from "../skills";
 describe("simple page testing", () => {
   it("finds React in SkillsPage", async () => {
     const { getByText, getAllByText } = render(<SkillsPage />);
-    const jsNodes = await waitForElement(() => getAllByText(/javascript/i));
-    const reactNodes = await waitForElement(() => getAllByText(/react/i));
+    const jsNodes = await waitFor(() => getAllByText(/javascript/i));
+    const reactNodes = await waitFor(() => getAllByText(/react/i));
     expect(jsNodes.length).toBeGreaterThan(0);
     expect(reactNodes.length).toBeGreaterThan(0);
   });
