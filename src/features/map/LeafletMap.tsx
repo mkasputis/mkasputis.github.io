@@ -82,7 +82,9 @@ const Map = React.forwardRef<HTMLDivElement, MapProps>(
       dispatch(addOverlay({ id: name, overlay: geoJSON }));
     }
     return (
-      <div ref={ref} id={CONTAINER_ID} className="LeafletMap__container"></div>
+      <div ref={ref} id={CONTAINER_ID} className="LeafletMap__container">
+        {typeof map === "undefined" ? "Loading..." : null}
+      </div>
     );
   }
 );

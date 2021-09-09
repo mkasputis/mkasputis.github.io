@@ -51,29 +51,6 @@ export const LeafletProvider: React.FC<{
   );
 };
 
-export const LeafletProvider2 = React.forwardRef<any, any>(
-  ({ mapRef, children }, ref) => {
-    if (typeof mapRef === "undefined") {
-      throw new Error("a React ref must be passed to the `mapRef` prop");
-    }
-    if (typeof mapRef?.current === "undefined") {
-      throw new Error("mapRef.current must be defined");
-    }
-    const [map, setMap] = React.useState<DeferredMap>(null);
-    React.useEffect(() => {
-      if (mapRef.current && map == null) {
-        const instance = new L.Map(mapRef.current);
-        setMap(instance);
-      }
-    }, [mapRef, map, setMap]);
-    return (
-      <LeafletContext.Provider value={{ map }}>
-        {children}
-      </LeafletContext.Provider>
-    );
-  }
-);
-
 export const useLeaflet = () => {
   return React.useContext(LeafletContext);
 };

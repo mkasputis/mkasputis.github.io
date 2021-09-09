@@ -1,6 +1,7 @@
 /**
  * WARNING: including a component anywhere else besides the unused import statement
  * will add it's larger mapping modules to the webpack bundle
+ * use `import(/ * webpackChuckName: "anotherMap" * / "../path").then(imports => ...)
  */
 import React from "react";
 import Row from "react-bootstrap/Row";
